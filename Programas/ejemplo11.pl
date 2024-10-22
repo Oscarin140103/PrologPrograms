@@ -1,5 +1,5 @@
 % ===============================================
-% Autor: Juan Pérez
+% Autor: Oscar Roberto Lopez Machado
 % Fecha: 22 de octubre de 2024
 % Descripción: Programa en Prolog que modifica la
 %              codificación Run-Length de una lista.
