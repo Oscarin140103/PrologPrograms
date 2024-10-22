@@ -9,34 +9,34 @@
 
 % -------- Código en Python (comentado) ---------
 % Función para modificar la codificación Run-Length de una lista en Python.
-def encode_modified(lst):
-    if not lst:
-        return []
-
-    result = []
-    count = 1
-
-    for i in range(1, len(lst)):
-        if lst[i] == lst[i - 1]:
-            count += 1
-        else:
-            if count == 1:
-                result.append(lst[i - 1])
-            else:
-                result.append([count, lst[i - 1]])
-            count = 1
-
-    if count == 1:
-        result.append(lst[-1])
-    else:
-        result.append([count, lst[-1]])
-
-    return result
-
+% def encode_modified(lst):
+%    if not lst:
+%        return []
+%
+%    result = []
+%    count = 1
+%
+%    for i in range(1, len(lst)):
+%        if lst[i] == lst[i - 1]:
+%            count += 1
+%        else:
+%            if count == 1:
+%                result.append(lst[i - 1])
+%            else:
+%                result.append([count, lst[i - 1]])
+%            count = 1
+%
+%    if count == 1:
+%        result.append(lst[-1])
+%    else:
+%        result.append([count, lst[-1]])
+%
+%    return result
+%
 % Ejemplo de uso:
-lista = ['a', 'a', 'b', 'c', 'c', 'c']
-encoded_lista = encode_modified(lista)
-print("Lista codificada modificada:", encoded_lista)
+% lista = ['a', 'a', 'b', 'c', 'c', 'c']
+% encoded_lista = encode_modified(lista)
+% print("Lista codificada modificada:", encoded_lista)
 
 % Salida esperada:
 % Lista codificada modificada: [[2, 'a'], 'b', [3, 'c']]
