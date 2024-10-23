@@ -48,3 +48,10 @@ list_length([_|T], N) :-
 % ?- list_length([a, b, c, d], N).
 % N = 4.
 % ----------------------------------------------
+% Predicado main para ejecutar el programa
+main :-
+    List = [a, b, c, d],
+    list_length(List, N),
+    format('La longitud de la lista es: ~d~n', [N]),
+    halt.
+

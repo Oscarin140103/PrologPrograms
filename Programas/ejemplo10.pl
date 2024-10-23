@@ -73,13 +73,37 @@ encode(L, R) :-
     pack(L, P), 
     transform(P, R).
 
+% Agrupa duplicados consecutivos.
+pack([], []).
+pack([X|Xs], [[X|Group]|Rest]) :-
+    take_while(Xs, X, Group),
+    pack(Rest, RestGroups),
+    append(RestGroups, [[X|Group]], Result),
+    flatten(Result, NewRest),
+    pack(Xs, NewRest).
+
+% Toma elementos mientras coincidan con X.
+take_while([], _, []).
+take_while([X|Xs], X, [X|Rest]) :-
+    take_while(Xs, X, Rest).
+take_while([Y|_], X, []) :- 
+    Y \= X.
+
 % Transforma sublistas en parejas (N, X), donde N es la cantidad de elementos.
 transform([], []).
 transform([[X|Xs]|Ys], [[N,X]|Zs]) :- 
     length([X|Xs], N), 
     transform(Ys, Zs).
 
+% Predicado main para ejecutar el programa
+main :-
+    List = [a, a, b, b, c, a, a, d],
+    encode(List, R),
+    format('Lista codificada: ~w~n', [R]),
+    halt.
+
 % Ejemplo de uso:
 % ?- encode([a, a, b, b, c, a, a, d], R).
 % R = [[2, a], [2, b], [1, c], [2, a], [1, d]].
 % ----------------------------------------------
+

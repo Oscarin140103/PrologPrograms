@@ -41,13 +41,29 @@
 % ----------------------------------------------
 
 % -------- Código en Prolog --------------------
-% Predicado palindrome(L) que verifica si la lista L es un palíndromo.
+% Predicado para invertir una lista
+reverse_list(L, R) :- 
+    reverse_list(L, [], R).
 
-% Una lista es un palíndromo si es igual a su inversa.
+reverse_list([], Acc, Acc).
+reverse_list([H|T], Acc, R) :- 
+    reverse_list(T, [H|Acc], R).
+
+% Predicado que verifica si una lista es un palíndromo
 palindrome(L) :- 
     reverse_list(L, L).
+
+% Predicado main para ejecutar el programa
+main :-
+    List = [a, b, c, b, a],
+    (   palindrome(List)
+    ->  format('¿La lista es un palíndromo? Sí~n')
+    ;   format('¿La lista es un palíndromo? No~n')
+    ),
+    halt.
 
 % Ejemplo de uso:
 % ?- palindrome([a, b, c, b, a]).
 % true.
 % ----------------------------------------------
+

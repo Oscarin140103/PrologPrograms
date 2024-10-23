@@ -53,3 +53,11 @@ reverse_list([H|T], Acc, R) :-
 % ?- reverse_list([a, b, c, d], R).
 % R = [d, c, b, a].
 % ----------------------------------------------
+
+% Predicado main para ejecutar el programa
+main :-
+    List = [a, b, c, d],
+    reverse_list(List, R),
+    format('La lista invertida es: ~w~n', [R]),
+    halt.
+

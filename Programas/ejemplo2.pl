@@ -47,3 +47,11 @@ penultimate(X, [_|T]) :-
 % ?- penultimate(X, [a, b, c, d]).
 % X = c.
 % ----------------------------------------------
+
+% Predicado main para ejecutar el programa
+main :-
+    List = [a, b, c, d],
+    penultimate(X, List),
+    format('El penúltimo elemento es: ~w~n', [X]),
+    halt.
+

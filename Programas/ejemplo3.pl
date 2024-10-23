@@ -49,3 +49,12 @@ element_at(X, [_|T], K) :-
 % ?- element_at(X, [a, b, c, d], 3).
 % X = c.
 % ----------------------------------------------
+
+% Predicado main para ejecutar el programa
+main :-
+    List = [a, b, c, d],
+    K = 3,
+    element_at(X, List, K),
+    format('El elemento en la posición ~d es: ~w~n', [K, X]),
+    halt.
+

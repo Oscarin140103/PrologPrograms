@@ -75,3 +75,11 @@ transfer(X, [X|Xs], [X|Ys], Rest) :-
 % ?- pack([a, a, b, b, c, a, a, d], Packed).
 % Packed = [[a, a], [b, b], [c], [a, a], [d]].
 % ----------------------------------------------
+
+% Predicado main para ejecutar el programa
+main :-
+    List = [a, a, b, b, c, a, a, d],
+    pack(List, Packed),
+    format('Lista agrupada: ~w~n', [Packed]),
+    halt.
+

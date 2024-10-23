@@ -62,3 +62,11 @@ my_flatten(X, [X]) :-
 % ?- my_flatten([a, [b, c], d, [e, [f, g]]], Flat).
 % Flat = [a, b, c, d, e, f, g].
 % ----------------------------------------------
+
+% Predicado main para ejecutar el programa
+main :-
+    Nested = [a, [b, c], d, [e, [f, g]]],
+    my_flatten(Nested, Flat),
+    format('La lista aplanada es: ~w~n', [Flat]),
+    halt.
+

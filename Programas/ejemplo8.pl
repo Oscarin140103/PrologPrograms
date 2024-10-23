@@ -64,3 +64,11 @@ compress([X,Y|T], [X|R]) :-
 % ?- compress([a, a, b, b, c, a, a, d], R).
 % R = [a, b, c, a, d].
 % ----------------------------------------------
+
+% Predicado main para ejecutar el programa
+main :-
+    List = [a, a, b, b, c, a, a, d],
+    compress(List, R),
+    format('Lista sin duplicados: ~w~n', [R]),
+    halt.
+
