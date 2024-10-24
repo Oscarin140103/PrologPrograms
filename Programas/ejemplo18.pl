@@ -33,3 +33,23 @@ slice([_|T], I, K, R) :- I > 1, I1 is I - 1, K1 is K - 1, slice(T, I1, K1, R).
 % ?- slice([a,b,c,d,e], 2, 3, R).
 % R = [b, c, d].
 % ----------------------------------------------
+
+
+% Predicado principal (main)
+main :-
+    % Definimos una lista de ejemplo
+    Lista = [a, b, c, d, e],
+    
+    % Definimos el índice de inicio y la longitud de la porción
+    Inicio = 2,
+    Longitud = 3,
+    
+    % Aplicamos la extracción de la porción
+    slice(Lista, Inicio, Longitud, Porcion),
+    
+    % Mostramos el resultado
+    write('Porción extraída: '), write(Porcion), nl.
+
+% Ejemplo de uso:
+% ?- main.
+% Porción extraída: [b, c, d].

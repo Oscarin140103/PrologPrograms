@@ -39,3 +39,21 @@ drop([H|T], K, N, [H|R]) :- K > 1, K1 is K - 1, drop(T, K1, N, R).
 % ?- drop([a,b,c,d,e,f], 2, R).
 % R = [a, c, e].
 % ----------------------------------------------
+
+% Predicado principal (main)
+main :-
+    % Definimos una lista de ejemplo
+    Lista = [a, b, c, d, e, f],
+    
+    % Definimos el valor de n
+    N = 2,
+    
+    % Aplicamos la eliminación de cada n-ésimo elemento
+    drop(Lista, N, Resultado),
+    
+    % Mostramos el resultado
+    write('Lista después de eliminar cada '), write(N), write('-ésimo elemento: '), write(Resultado), nl.
+
+% Ejemplo de uso:
+% ?- main.
+% Lista después de eliminar cada 2-ésimo elemento: [a, c, e].

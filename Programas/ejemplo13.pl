@@ -55,3 +55,18 @@ count(X, [Y|Ys], 0, [Y|Ys]) :- X \= Y.
 % ?- encode_direct([a,a,b,c,c,c], R).
 % R = [[2, a], [1, b], [3, c]].
 % ----------------------------------------------
+
+% Predicado principal (main)
+main :-
+    % Definimos una lista de ejemplo
+    Lista = [a, a, b, c, c, c],
+    
+    % Aplicamos la codificación directa
+    encode_direct(Lista, Resultado),
+    
+    % Mostramos el resultado
+    write('Lista codificada: '), write(Resultado), nl.
+
+% Ejemplo de uso:
+% ?- main.
+% Lista codificada: [[2, a], [1, b], [3, c]].

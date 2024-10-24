@@ -31,24 +31,35 @@
 % ----------------------------------------------
 
 % -------- Código en Prolog --------------------
+% is_prime.pl
 % Verifica si un número entero dado es primo.
 
-is_prime(2).  % 2 es primo
-is_prime(3).  % 3 es primo
+% Casos base para números primos.
+is_prime(2).
+is_prime(3).
+
+% Verifica si un número mayor que 3 es primo.
 is_prime(P) :- 
-    P > 3,                   % P debe ser mayor que 3
-    P mod 2 =\= 0,           % P no debe ser divisible por 2
-    \\+ has_factor(P, 3).     % P no debe tener factores
+    P > 3, 
+    P mod 2 =\= 0, 
+    \+ has_factor(P, 3).
 
 % Verifica si un número tiene factores.
 has_factor(N, L) :- 
-    N mod L =:= 0.            % Si N es divisible por L, entonces tiene un factor
+    N mod L =:= 0.
 has_factor(N, L) :- 
-    L * L < N,                % Si L² es menor que N, sigue buscando factores
-    L2 is L + 2,              % Incrementa el divisor en 2
-    has_factor(N, L2).        % Llama recursivamente con el siguiente divisor
+    L * L < N, 
+    L2 is L + 2, 
+    has_factor(N, L2).
 
-% Ejemplo de uso:
-% ?- is_prime(29).
-% true.
-% ----------------------------------------------
+% main: Ejemplo de uso
+main :-
+    write('Introduce un número entero: '),
+    read(Number),
+    (is_prime(Number) -> 
+        write(Number), write(' es primo.'), nl 
+    ; 
+        write(Number), write(' no es primo.'), nl
+    ).
+
+:- initialization(main).

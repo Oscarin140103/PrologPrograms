@@ -36,3 +36,23 @@ split([H|T], N, [H|L1], L2) :- N > 0, N1 is N - 1, split(T, N1, L1, L2).
 % L1 = [a, b],
 % L2 = [c, d, e].
 % ----------------------------------------------
+
+% Predicado principal (main)
+main :-
+    % Definimos una lista de ejemplo
+    Lista = [a, b, c, d, e],
+    
+    % Definimos la longitud de la primera parte
+    N = 2,
+    
+    % Aplicamos la división de la lista
+    split(Lista, N, Parte1, Parte2),
+    
+    % Mostramos los resultados
+    write('Primera parte: '), write(Parte1), nl,
+    write('Segunda parte: '), write(Parte2), nl.
+
+% Ejemplo de uso:
+% ?- main.
+% Primera parte: [a, b]
+% Segunda parte: [c, d, e].

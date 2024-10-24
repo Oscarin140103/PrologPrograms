@@ -42,3 +42,21 @@ duplicate(X, N, [X|R]) :- N > 0, N1 is N - 1, duplicate(X, N1, R).
 % ?- dupli([a,b,c], 3, R).
 % R = [a, a, a, b, b, b, c, c, c].
 % ----------------------------------------------
+
+% Predicado principal (main)
+main :-
+    % Definimos una lista de ejemplo
+    Lista = [a, b, c],
+    
+    % Definimos el número de repeticiones
+    N = 3,
+    
+    % Aplicamos la duplicación de elementos N veces
+    dupli(Lista, N, Resultado),
+    
+    % Mostramos el resultado
+    write('Lista duplicada: '), write(Resultado), nl.
+
+% Ejemplo de uso:
+% ?- main.
+% Lista duplicada: [a, a, a, b, b, b, c, c, c].

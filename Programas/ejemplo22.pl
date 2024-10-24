@@ -32,3 +32,19 @@ range(I, K, [I|R]) :- I < K, I1 is I + 1, range(I1, K, R).
 % R = [3, 4, 5, 6, 7].
 % ----------------------------------------------
 
+
+% Predicado principal (main)
+main :-
+    % Definimos el rango
+    Inicio = 3,
+    Fin = 7,
+    
+    % Creamos la lista de enteros en el rango
+    range(Inicio, Fin, Resultado),
+    
+    % Mostramos el resultado
+    write('Lista de enteros en el rango ('), write(Inicio), write(', '), write(Fin), write('): '), write(Resultado), nl.
+
+% Ejemplo de uso:
+% ?- main.
+% Lista de enteros en el rango (3, 7): [3, 4, 5, 6, 7].

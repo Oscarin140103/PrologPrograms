@@ -1,109 +1,42 @@
 % ===============================================
 % Autor: Oscar Roberto Lopez Machado
 % Fecha: 21 de octubre de 2024
-% Descripción: Programa en Prolog que codifica 
+% Descripción: Programa en Prolog que codifica
 %              una lista usando codificación Run-Length.
-%              Se incluye una versión comentada en C# para referencia.
 % ===============================================
 
-% -------- Código en C# (comentado) ------------
-% using System;
-% using System.Collections.Generic;
-% 
-% class Program
-% {
-%     // Función para codificar una lista usando codificación Run-Length en C#.
-%     static List<Tuple<int, T>> Encode<T>(List<T> list)
-%     {
-%         var packed = Pack(list); // Agrupa duplicados consecutivos.
-%         var result = new List<Tuple<int, T>>(); // Lista para almacenar el resultado.
-% 
-%         foreach (var sublist in packed)
-%         {
-%             result.Add(Tuple.Create(sublist.Count, sublist[0])); // Agrega la pareja (N, X).
-%         }
-%         return result; // Devuelve la lista codificada.
-%     }
-% 
-%     // Función auxiliar para agrupar duplicados consecutivos.
-%     static List<List<T>> Pack<T>(List<T> list)
-%     {
-%         var result = new List<List<T>>();
-%         if (list == null || list.Count == 0)
-%             return result;
-%         
-%         var sublist = new List<T> { list[0] };
-% 
-%         for (int i = 1; i < list.Count; i++)
-%         {
-%             if (EqualityComparer<T>.Default.Equals(list[i], list[i - 1]))
-%             {
-%                 sublist.Add(list[i]);
-%             }
-%             else
-%             {
-%                 result.Add(sublist);
-%                 sublist = new List<T> { list[i] };
-%             }
-%         }
-%         result.Add(sublist);
-%         return result;
-%     }
-% 
-%     static void Main()
-%     {
-%         List<char> lista = new List<char> { 'a', 'a', 'b', 'b', 'c', 'a', 'a', 'd' };
-%         var listaCodificada = Encode(lista);
-% 
-%         Console.WriteLine("Lista codificada: ");
-%         foreach (var pair in listaCodificada)
-%         {
-%             Console.WriteLine($"({pair.Item1}, {pair.Item2})");
-%         }
-%     }
-% }
-% ----------------------------------------------
-
-% -------- Código en Prolog --------------------
-% Predicado encode(L, R) que codifica la lista L usando codificación Run-Length, 
-% devolviendo R.
-
+% run_length_encode.pl
+% Codifica una lista usando codificación Run-Length.
 % Primero agrupa los duplicados y luego transforma las sublistas en parejas (N, X).
+
+% Agrupa elementos consecutivos duplicados en sublistas.
+pack([], []).
+pack([X|Xs], [[X|Ys]|Zs]) :- 
+    collect(X, Xs, Ys, Rest),
+    pack(Rest, Zs).
+
+% Reúne elementos duplicados.
+collect(X, [], [], []).
+collect(X, [X|Xs], [X|Ys], Rest) :- 
+    collect(X, Xs, Ys, Rest).
+collect(X, [Y|Ys], [], [Y|Ys]) :- 
+    X \= Y.
+
+% Codifica la lista.
 encode(L, R) :- 
     pack(L, P), 
     transform(P, R).
 
-% Agrupa duplicados consecutivos.
-pack([], []).
-pack([X|Xs], [[X|Group]|Rest]) :-
-    take_while(Xs, X, Group),
-    pack(Rest, RestGroups),
-    append(RestGroups, [[X|Group]], Result),
-    flatten(Result, NewRest),
-    pack(Xs, NewRest).
-
-% Toma elementos mientras coincidan con X.
-take_while([], _, []).
-take_while([X|Xs], X, [X|Rest]) :-
-    take_while(Xs, X, Rest).
-take_while([Y|_], X, []) :- 
-    Y \= X.
-
 % Transforma sublistas en parejas (N, X), donde N es la cantidad de elementos.
 transform([], []).
-transform([[X|Xs]|Ys], [[N,X]|Zs]) :- 
+transform([[X|Xs]|Ys], [[N, X]|Zs]) :- 
     length([X|Xs], N), 
     transform(Ys, Zs).
 
-% Predicado main para ejecutar el programa
+% main: Ejemplo de uso
 main :-
-    List = [a, a, b, b, c, a, a, d],
-    encode(List, R),
-    format('Lista codificada: ~w~n', [R]),
-    halt.
+    List = [a, a, b, c, c, c, d, d, e, e, e, e],
+    encode(List, Encoded),
+    write('Lista codificada: '), write(Encoded), nl.
 
-% Ejemplo de uso:
-% ?- encode([a, a, b, b, c, a, a, d], R).
-% R = [[2, a], [2, b], [1, c], [2, a], [1, d]].
-% ----------------------------------------------
-
+:- initialization(main).

@@ -44,3 +44,31 @@ combination(K, [_|T], Comb) :-
 % Comb = [b, d] ;
 % Comb = [c, d].
 % ----------------------------------------------
+
+% Predicado principal (main)
+main :-
+    % Definimos la lista original y el número de elementos a combinar
+    ListaOriginal = [a, b, c, d],
+    K = 2,
+    
+    % Generamos y mostramos todas las combinaciones
+    combination(K, ListaOriginal, Comb),
+    
+    % Mostramos la combinación resultante
+    write('Combinación: '), write(Comb), nl,
+    
+    % Preguntamos si el usuario desea continuar
+    fail.  % Esto forzará a volver a buscar más combinaciones
+
+main :- 
+    write('No hay más combinaciones.').
+    
+% Ejemplo de uso:
+% ?- main.
+% Combinación: [a, b]
+% Combinación: [a, c]
+% Combinación: [a, d]
+% Combinación: [b, c]
+% Combinación: [b, d]
+% Combinación: [c, d]
+% No hay más combinaciones.

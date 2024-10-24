@@ -7,41 +7,6 @@
 %              en Python para referencia.
 % ===============================================
 
-% -------- Código en Python (comentado) ---------
-% Función para modificar la codificación Run-Length de una lista en Python.
-% def encode_modified(lst):
-%    if not lst:
-%        return []
-%
-%    result = []
-%    count = 1
-%
-%    for i in range(1, len(lst)):
-%        if lst[i] == lst[i - 1]:
-%            count += 1
-%        else:
-%            if count == 1:
-%                result.append(lst[i - 1])
-%            else:
-%                result.append([count, lst[i - 1]])
-%            count = 1
-%
-%    if count == 1:
-%        result.append(lst[-1])
-%    else:
-%        result.append([count, lst[-1]])
-%
-%    return result
-%
-% Ejemplo de uso:
-% lista = ['a', 'a', 'b', 'c', 'c', 'c']
-% encoded_lista = encode_modified(lista)
-% print("Lista codificada modificada:", encoded_lista)
-
-% Salida esperada:
-% Lista codificada modificada: [[2, 'a'], 'b', [3, 'c']]
-% ----------------------------------------------
-
 % -------- Código en Prolog --------------------
 % Modifica la codificación Run-Length de una lista.
 % Si un elemento no tiene duplicados, se mantiene sin empaquetar.
@@ -49,16 +14,40 @@
 % Codifica la lista y luego la modifica.
 encode_modified(L, R) :- encode(L, Enc), modify(Enc, R).
 
+% Codifica la lista original usando Run-Length Encoding
+encode([], []).
+encode([X|Xs], Encoded) :- 
+    count_occurrences(X, Xs, 1, Rest, Count),
+    encode(Rest, EncodedRest),
+    Encoded = [[Count, X] | EncodedRest].
+
+% Cuenta cuántas veces aparece el primer elemento en la lista.
+count_occurrences(X, [X|Xs], Count, Rest, FinalCount) :- 
+    Count1 is Count + 1,
+    count_occurrences(X, Xs, Count1, Rest, FinalCount).
+count_occurrences(X, [Y|Ys], Count, [Y|Ys], Count) :- X \= Y.
+count_occurrences(X, [], Count, [], Count).
+
 % Caso base: lista vacía.
 modify([], []).
 
 % Si hay solo un elemento, agrégalo directamente.
 modify([[1,X]|T], [X|R]) :- modify(T, R).
 
-% Si hay más de un elemento, mantén el formato (N, X).
+% Si hay más de un elemento, mantén el formato [N, X].
 modify([[N,X]|T], [[N,X]|R]) :- N > 1, modify(T, R).
 
+% Predicado principal (main)
+main :-
+    % Definimos una lista de ejemplo
+    Lista = [a, a, b, c, c, c],
+    
+    % Aplicamos la codificación modificada
+    encode_modified(Lista, Resultado),
+    
+    % Mostramos el resultado
+    write('Lista codificada modificada: '), write(Resultado), nl.
+
 % Ejemplo de uso:
-% ?- encode_modified([a,a,b,c,c,c], R).
-% R = [[2, a], b, [3, c]].
-% ----------------------------------------------
+% ?- main.
+% Lista codificada modificada: [[2, a], b, [3, c]].

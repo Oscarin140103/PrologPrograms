@@ -5,7 +5,7 @@
 %              permutación aleatoria de los elementos
 %              de una lista. Utiliza la selección aleatoria
 %              para construir la permutación.
-%              Se incluye una versión comentada 
+%              Se incluye una versión comentada
 %              en Python para referencia.
 % ===============================================
 
@@ -27,13 +27,27 @@
 % ----------------------------------------------
 
 % -------- Código en Prolog --------------------
+% rnd_permu.pl
 % Genera una permutación aleatoria de los elementos de una lista.
 % Utiliza la selección aleatoria para construir la permutación.
-rnd_permu(L, P) :- 
-    length(L, Len), 
-    rnd_select(L, Len, P).
 
-% Ejemplo de uso:
-% ?- rnd_permu([a,b,c,d,e], P).
-% P = [c, a, e, b, d].  % (Ejemplo; puede variar)
-% ----------------------------------------------
+% Selecciona un elemento aleatorio de la lista y lo elimina.
+rnd_select([], 0, []).
+rnd_select(L, N, [X|R]) :-
+    length(L, Len),
+    random_between(1, Len, I),
+    nth1(I, L, X),
+    select(X, L, L1),
+    N1 is N - 1,
+    rnd_select(L1, N1, R).
+
+% Genera una permutación aleatoria de los elementos de una lista.
+rnd_permu(L, P) :- length(L, Len), rnd_select(L, Len, P).
+
+% main: Ejemplo de uso
+main :-
+    List = [a, b, c, d, e],
+    rnd_permu(List, Perm),
+    write('Permutación aleatoria: '), write(Perm), nl.
+
+:- initialization(main).

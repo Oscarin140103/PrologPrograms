@@ -34,14 +34,28 @@
 % ----------------------------------------------
 
 % -------- Código en Prolog --------------------
+% group.pl
 % Agrupa los elementos de un conjunto en subconjuntos disjuntos dados los tamaños de los subgrupos.
-group([], [], []).
-group([N|Ns], Es, [G|Gs]) :- 
-    combination(N, Es, G), 
-    subtract(Es, G, Rest), 
+
+% Combina N elementos de una lista.
+combination(0, _, []).
+combination(N, L, [X|Xs]) :-
+    select(X, L, Rest),
+    N1 is N - 1,
+    combination(N1, Rest, Xs).
+
+% Agrupa los elementos en subconjuntos disjuntos.
+group([], _, []).
+group([N|Ns], Es, [G|Gs]) :-
+    combination(N, Es, G),
+    subtract(Es, G, Rest),
     group(Ns, Rest, Gs).
 
-% Ejemplo de uso:
-% ?- group([2, 3, 2], [a, b, c, d, e, f, g], Grupos).
-% Grupos = [[a, b], [c, d, e], [f, g]].
-% ----------------------------------------------
+% main: Ejemplo de uso
+main :-
+    Sizes = [2, 3],  % Tamaños de los grupos
+    Elements = [a, b, c, d, e, f],  % Elementos a agrupar
+    group(Sizes, Elements, Groups),
+    write('Grupos: '), write(Groups), nl.
+
+:- initialization(main).

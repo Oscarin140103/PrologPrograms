@@ -33,3 +33,18 @@ dupli([H|T], [H,H|R]) :- dupli(T, R).
 % ?- dupli([a,b,c], R).
 % R = [a, a, b, b, c, c].
 % ----------------------------------------------
+
+% Predicado principal (main)
+main :-
+    % Definimos una lista de ejemplo
+    Lista = [a, b, c],
+    
+    % Aplicamos la duplicación de elementos
+    dupli(Lista, Resultado),
+    
+    % Mostramos el resultado
+    write('Lista duplicada: '), write(Resultado), nl.
+
+% Ejemplo de uso:
+% ?- main.
+% Lista duplicada: [a, a, b, b, c, c].

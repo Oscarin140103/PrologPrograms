@@ -34,3 +34,23 @@ insert_at(X, [H|T], K, [H|R]) :- K > 1, K1 is K - 1, insert_at(X, T, K1, R).
 % ?- insert_at(c, [a,b,d,e], 3, R).
 % R = [a, b, c, d, e].
 % ----------------------------------------------
+
+% Predicado principal (main)
+main :-
+    % Definimos la lista original
+    Lista = [a, b, d, e],
+    
+    % Definimos el elemento a insertar y la posición
+    Elemento = c,
+    K = 3,
+    
+    % Realizamos la inserción
+    insert_at(Elemento, Lista, K, Resultado),
+    
+    % Mostramos el resultado
+    write('Lista después de insertar el elemento '), write(Elemento), 
+    write(' en la posición '), write(K), write(': '), write(Resultado), nl.
+
+% Ejemplo de uso:
+% ?- main.
+% Lista después de insertar el elemento c en la posición 3: [a, b, c, d, e].

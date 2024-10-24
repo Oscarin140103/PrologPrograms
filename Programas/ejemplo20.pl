@@ -35,3 +35,23 @@ remove_at(X, [H|T], K, [H|R]) :- K > 1, K1 is K - 1, remove_at(X, T, K1, R).
 % X = c,
 % R = [a, b, d, e].
 % ----------------------------------------------
+
+% Predicado principal (main)
+main :-
+    % Definimos una lista de ejemplo
+    Lista = [a, b, c, d, e],
+    
+    % Definimos el índice del elemento a eliminar
+    K = 3,
+    
+    % Aplicamos la eliminación del k-ésimo elemento
+    remove_at(ElementoEliminado, Lista, K, Resultado),
+    
+    % Mostramos el resultado
+    write('Elemento eliminado: '), write(ElementoEliminado), nl,
+    write('Lista después de eliminar el '), write(K), write('-ésimo elemento: '), write(Resultado), nl.
+
+% Ejemplo de uso:
+% ?- main.
+% Elemento eliminado: c
+% Lista después de eliminar el 3-ésimo elemento: [a, b, d, e].
